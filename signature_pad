@@ -76,3 +76,102 @@ function updateName(name) {
     signaturePad.clear();
 });
 </script>
+
+
+
+//CSS for the Widget
+.wrapper {
+position: relative;
+width: 400px;
+height: 200px;
+-moz-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+.signature-pad {
+position: absolute;
+left: 0;
+top: 0;
+width: 400px;
+height: 200px;
+background-color: white;
+border: 5px dashed gray;
+}
+
+#signature-pad {
+    border: 2px solid #ccc;
+    background-color: #fff;
+}
+
+label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+input[type="text"] {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+input[type="text"] {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    display: none;
+}
+
+.custom-toggle {
+    width: 60px; /* Adjust the width of the toggle */
+    height: 30px; /* Adjust the height of the toggle */
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.custom-toggle .handle {
+    width: 24px;
+    height: 24px;
+    background-color: #ccc;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: left 0.3s ease-in-out;
+}
+
+.custom-toggle input[type="checkbox"] {
+    display: none;
+}
+
+.custom-toggle input[type="checkbox"]:checked + .handle {
+    left: 30px;
+}
+
+
+//Server Script
+(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+})();
+
+
+//Client Controller Script
+function($rootScope, $scope, spUtil, spModal) {
+    /* widget controller */
+    var c = this;
+
+    c.save_sign = function() {
+        //alert('run');
+        if (signaturePad.isEmpty()) {
+            return alert("Please provide a signature first.");
+        }
+        var data = signaturePad.toDataURL('image/png');
+        $rootScope.$broadcast('defaultImageKey', data);
+    }
+}
+
